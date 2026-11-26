@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>윤동월</title>
+<meta name="description" content="윤동월 배드민턴 클럽 출석부">
+<meta name="theme-color" content="#0b110f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="윤동월">
+<style>
+:root{--bg:#0b110f;--ink:#efe8d8;--muted:#c4bba6;--gold:#c9aa6b;--gold-hi:#ead8a6;--line:#26342f;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg) radial-gradient(120% 60% at 50% -10%,rgba(201,170,107,.16),transparent 60%) no-repeat;color:var(--ink);font-family:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",system-ui,sans-serif;line-height:1.6;padding:max(28px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(28px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+main{max-width:440px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.icon{width:112px;height:112px;border-radius:26px;box-shadow:0 0 0 1px var(--gold),0 16px 40px rgba(0,0,0,.5)}
+h1{margin:0;font-size:1.9rem;letter-spacing:.2em;margin-right:-.2em;color:var(--gold-hi);font-weight:700}
+.sub{margin:-10px 0 0;color:var(--muted);font-size:.95rem}
+.btn{display:block;width:100%;padding:15px 18px;border-radius:10px;border:0;font:inherit;font-weight:700;font-size:1.05rem;text-decoration:none;cursor:pointer}
+.primary{background:linear-gradient(160deg,var(--gold-hi),var(--gold) 60%,#8c7240);color:#0b110f}
+.ghost{background:transparent;color:var(--gold-hi);border:1px solid #5f4f2f}
+.card{width:100%;text-align:left;border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:rgba(255,255,255,.03)}
+.card h2{margin:0 0 8px;font-size:1.05rem;color:var(--gold-hi)}
+.card ol{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;font-size:.95rem}
+.note{font-size:.85rem;color:var(--muted)}
+.warn{border-color:#6e3a31;background:rgba(215,136,122,.08)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+  <img class="icon" src="apple-touch-icon.png" alt="윤동월 아이콘">
+  <h1>윤동월</h1>
+  <p class="sub">배드민턴 클럽 출석부</p>
+
+  <section class="card warn" id="kakao" hidden>
+    <h2>카카오톡 안에서는 설치가 안 돼요</h2>
+    <p class="note" style="margin:0">아래 버튼을 눌러 크롬이나 사파리로 다시 열어 주세요. 안 되면 오른쪽 위 ⋮ 또는 … 메뉴에서 "다른 브라우저로 열기"를 눌러 주세요.</p>
+  </section>
+
+  <a class="btn primary" id="open" href="#">출석부 열기</a>
+  <button class="btn ghost" id="install" hidden>앱으로 설치하기</button>
+
+  <section class="card" id="android" hidden>
+    <h2>안드로이드에 설치하기</h2>
+    <ol>
+      <li>크롬에서 이 페이지를 열어요.</li>
+      <li>위의 <b>앱으로 설치하기</b>를 누르거나, 오른쪽 위 ⋮ 메뉴 → <b>홈 화면에 추가</b>(또는 앱 설치)를 눌러요.</li>
+      <li>바탕화면에 생긴 <b>윤동월</b> 아이콘을 누르면 출석부가 열려요.</li>
+    </ol>
+  </section>
+  <section class="card" id="ios" hidden>
+    <h2>아이폰에 설치하기</h2>
+    <ol>
+      <li><b>사파리</b>에서 이 페이지를 열어요.</li>
+      <li>아래쪽 <b>공유 버튼</b>(네모에 위 화살표)을 눌러요.</li>
+      <li><b>홈 화면에 추가</b> → <b>추가</b>를 눌러요.</li>
+      <li>바탕화면에 생긴 <b>윤동월</b> 아이콘을 누르면 출석부가 열려요.</li>
+    </ol>
+  </section>
+  <p class="note">처음 한 번은 초대받은 이메일 계정으로 클로드에 로그인해야 해요.</p>
+</main>
+<script>
+(function(){
+  var TARGET='https://claude.ai/artifact/4Wy1YdmizkPN9SLsrbnqDZ';
+  var ua=navigator.userAgent||'';
+  var isKakao=/KAKAOTALK/i.test(ua), isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1), isAndroid=/Android/i.test(ua);
+  var fromHome=/[?&]src=home/.test(location.search)||(window.matchMedia&&(matchMedia('(display-mode: standalone)').matches||matchMedia('(display-mode: minimal-ui)').matches))||navigator.standalone===true;
+  var open=document.getElementById('open'); open.href=TARGET;
+  // Opened from the home-screen icon: go straight to the attendance page.
+  if(fromHome&&!isKakao){location.replace(TARGET);return}
+  // Inside KakaoTalk's own browser: hand the page to the phone's real browser.
+  if(isKakao){
+    document.getElementById('kakao').hidden=false;
+    var here=location.href.split('#')[0];
+    var ext=isAndroid?'intent://'+here.replace(/^https?:\/\//,'')+'#Intent;scheme=https;package=com.android.chrome;end':'kakaotalk://web/openExternal?url='+encodeURIComponent(here);
+    open.textContent='크롬·사파리로 열기'; open.href=ext;
+    try{location.href='kakaotalk://web/openExternal?url='+encodeURIComponent(here)}catch(e){}
+    return;
+  }
+  if(isIOS)document.getElementById('ios').hidden=false;
+  else document.getElementById('android').hidden=false;
+  var deferred=null, btn=document.getElementById('install');
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;btn.hidden=false});
+  btn.addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred.userChoice.then(function(){deferred=null;btn.hidden=true})});
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
+})();
+</script>
+</body>
+</html>
